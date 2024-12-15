@@ -8,6 +8,9 @@
         <li><router-link to="/courses">Courses</router-link></li>
         <li><router-link to="/login">Login</router-link></li>
         <li><router-link to="/register">Register</router-link></li>
+        <li><a href="#" @click="logout">Logout</a></li>
+
+
       </ul>
     </nav>
 
@@ -33,6 +36,14 @@
 <script>
 export default {
   name: "App",
+  methods: {
+    logout() {
+      // 清除本地存储的用户信息
+      localStorage.removeItem('token');
+      // 重定向到登录页面
+      this.$router.push('/login');
+    }
+  }
 };
 </script>
 

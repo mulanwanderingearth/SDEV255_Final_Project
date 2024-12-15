@@ -72,7 +72,7 @@
         try {
           await axios.post("http://localhost:5000/api/courses", this.newCourse);
           alert("Course added successfully!");
-          this.$router.push("/courses"); // 重定向到课程列表页面
+          this.$router.push("/courses"); 
         } catch (error) {
           console.error("Error adding course:", error);
           alert("Failed to add course. Please try again.");
@@ -83,7 +83,7 @@
   </script>
   
   <style scoped>
-  /* 样式仅应用于此组件 */
+  
   form {
     max-width: 600px;
     margin: 0 auto;
