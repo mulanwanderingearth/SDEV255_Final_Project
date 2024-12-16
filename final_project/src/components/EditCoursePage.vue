@@ -69,7 +69,7 @@
   </script>
   
   <style scoped>
-  /* 添加样式 */
+  
   form {
     display: flex;
     flex-direction: column;

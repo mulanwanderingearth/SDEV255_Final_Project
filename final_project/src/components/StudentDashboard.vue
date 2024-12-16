@@ -2,7 +2,6 @@
   <div class="student-dashboard">
     <h1>Student Dashboard</h1>
 
-    <!-- 1. 课程列表 -->
     <div class="course-list">
       <h2>Available Courses</h2>
       <table>
@@ -20,7 +19,6 @@
             <td>{{ course.instructor }}</td>
             <td>{{ course.credits }}</td>
             <td>
-              <!-- 已加入购物车或已注册显示状态 -->
               <span v-if="isInCart(course) || isEnrolled(course)"
                 >Already Added</span
               >
@@ -31,7 +29,6 @@
       </table>
     </div>
 
-    <!-- 2. 购物车 -->
     <div class="cart">
       <h2>My Cart</h2>
       <table v-if="cart.length">
@@ -56,7 +53,6 @@
       <button v-if="cart.length" @click="enrollCourses">Enroll</button>
     </div>
 
-    <!-- 3. 已注册课程 -->
     <div class="enrolled-courses">
       <h2>Enrolled Courses</h2>
       <table v-if="enrolledCourses.length">
@@ -87,13 +83,12 @@ export default {
   name: "StudentDashboard",
   data() {
     return {
-      courses: [], // 所有课程
-      cart: [], // 购物车中的课程
-      enrolledCourses: [], // 已注册的课程
+      courses: [],
+      cart: [],
+      enrolledCourses: [],
     };
   },
   computed: {
-    // 计算可显示的课程 (过滤掉已加入购物车和已注册的课程)
     availableCourses() {
       return this.courses.filter(
         (course) => !this.isInCart(course) && !this.isEnrolled(course)
@@ -105,16 +100,14 @@ export default {
     this.fetchEnrolledCourses();
   },
   methods: {
-    // 获取所有课程
     async fetchCourses() {
       const res = await fetch("http://localhost:5000/api/courses");
       const data = await res.json();
       this.courses = data;
     },
 
-    // 获取已注册的课程
     async fetchEnrolledCourses() {
-      const userId = localStorage.getItem("userId"); // 从 localStorage 获取 userId
+      const userId = localStorage.getItem("userId");
       if (!userId) {
         console.error("User ID not found in localStorage");
         return;
@@ -133,17 +126,14 @@ export default {
       }
     },
 
-    // 检查课程是否在购物车中
     isInCart(course) {
       return this.cart.some((c) => c._id === course._id);
     },
 
-    // 检查课程是否已注册
     isEnrolled(course) {
       return this.enrolledCourses.some((c) => c._id === course._id);
     },
 
-    // 添加课程到购物车
     async addToCart(course) {
       const userId = localStorage.getItem("userId");
       await fetch("http://localhost:5000/api/cart", {
@@ -154,7 +144,6 @@ export default {
       this.cart.push(course);
     },
 
-    // 从购物车中移除课程
     async removeFromCart(course) {
       const userId = localStorage.getItem("userId");
       await fetch("http://localhost:5000/api/cart/remove", {
@@ -165,7 +154,6 @@ export default {
       this.cart = this.cart.filter((c) => c._id !== course._id);
     },
 
-    // 注册课程
     async enrollCourses() {
       const userId = localStorage.getItem("userId");
       await fetch("http://localhost:5000/api/enroll", {
@@ -177,7 +165,6 @@ export default {
       this.cart = [];
     },
 
-    // 取消注册课程
     async unenrollCourse(course) {
       const userId = localStorage.getItem("userId");
       await fetch("http://localhost:5000/api/unenroll", {
