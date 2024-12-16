@@ -39,13 +39,13 @@ const router = new VueRouter({
 export default router;
 
 router.beforeEach((to, from, next) => {
-  const publicPages = ["/login", "/register"];
+  const publicPages = ["/", "/home", "/courses", "/login", "/register"]; 
   const authRequired = !publicPages.includes(to.path);
   const token = localStorage.getItem("token");
 
   if (authRequired && !token) {
-    return next("/login");
+    return next("/login"); 
   }
-
-  next();
+  next(); 
 });
+

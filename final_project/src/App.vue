@@ -40,6 +40,8 @@ export default {
     logout() {
       // 清除本地存储的用户信息
       localStorage.removeItem('token');
+      localStorage.removeItem("role");
+      localStorage.removeItem("userId");
       // 重定向到登录页面
       this.$router.push('/login');
     }

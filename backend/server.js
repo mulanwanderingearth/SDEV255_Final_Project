@@ -251,8 +251,11 @@ app.post("/api/unenroll", async (req, res) => {
       return res.status(404).json({ message: "No enrolled courses found" });
 
     schedule.courses = schedule.courses.filter(
-      (c) => c.courseId.toString() !== courseId || c.status !== "enrolled"
+      (c) => c._id.toString() !== courseId || c.status !== "enrolled"
     );
+
+    console.log("courseId", courseId);
+    console.log("schedule.courses", schedule.courses);
 
     await schedule.save();
     res.status(200).json({ message: "Course unenrolled successfully" });

@@ -186,7 +186,7 @@ export default {
         body: JSON.stringify({ userId, courseId: course._id }),
       });
       this.enrolledCourses = this.enrolledCourses.filter(
-        (c) => c.id !== course._id
+        (c) => c._id !== course._id
       );
     },
   },
